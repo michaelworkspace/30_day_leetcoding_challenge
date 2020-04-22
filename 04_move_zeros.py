@@ -9,6 +9,8 @@ Note:
 
 You must do this in-place without making a copy of the array.
 Minimize the total number of operations.
+
+Do not return anything. Modify nums in place.
 """
 
 
@@ -16,19 +18,25 @@ from typing import List
 
 
 class Solution:
-    def moveZeroes(self, nums: List[int]) -> None:
-        """
-        Do not return anything, modify nums in-place instead.
-        """
-        # non_zeros = []
-        # for num in nums:
-        #     if num != 0:
-        #         non_zeros.append(num)
-        # non_zeros += [0] * nums.count(0)
-        # return non_zeros
-        
+    def moveZeroes_swapping(self, nums: List[int]) -> None:
+        # Element swapping approach
         i = 0
         for x in range(len(nums)):
             if nums[x] != 0:
                 nums[i], nums[x] = nums[x], nums[i]
                 i += 1
+                
+
+    def moveZeroes_two_pointers(self, nums: List[int]) -> None:
+        # Two-pointers approach. Get count of zeros and ending index of non-zeros array.
+        zeros = 0
+        end_of_non_zeros_ind = 0
+        for num in nums:
+            if num == 0:
+                zeros += 1
+            else:
+                nums[end_of_non_zeros_ind] = num
+                end_of_non_zeros_ind += 1
+        for _ in range(zeros):
+            nums[end_of_non_zeros_ind] = 0
+            end_of_non_zeros_ind += 1
